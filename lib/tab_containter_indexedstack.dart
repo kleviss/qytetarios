@@ -63,8 +63,8 @@ class _TabContainerIndexedStackState extends State<TabContainerIndexedStack> {
                   title: Text('Rreth nesh'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.exit_to_app),
-                  title: Text('Dil'),
+                  icon: Icon(Icons.more_horiz),
+                  title: Text('Më shumë'),
 
                 ),
 
