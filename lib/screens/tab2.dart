@@ -88,7 +88,7 @@ class _Tab2State extends State<Tab2> {
               _toasterJavascriptChannel(context),
             ].toSet(),
             navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
+              if (request.url.startsWith('https://www.youltube.com/')) {
                 print('blocking navigation to $request}');
                 return NavigationDecision.prevent;
               }

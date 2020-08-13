@@ -28,11 +28,21 @@ class _Tab4State extends State<Tab4> {
         title: const Text('Më shumë'),
 
       ),
-      body: new Column(
+      body: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          karta(),
-          tekst(),
-          tekst2(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              karta(),
+              tekst(),
+              tekst2(),
+            ],
+
+          )
+
         ],
       )
 
@@ -40,19 +50,22 @@ class _Tab4State extends State<Tab4> {
   }}
 
 Widget karta() {
-  return Card(
-    semanticContainer: true,
-    clipBehavior: Clip.antiAliasWithSaveLayer,
-    child: Image.asset(
-      "assets/images/splash.png",
-      fit: BoxFit.fill,
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(40.0),
-    ),
-    elevation: 15,
-    margin: EdgeInsets.all(20),
-  );
+  return Container(
+    height: 350,
+      child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Image.asset(
+          "assets/images/splash.png",
+          fit: BoxFit.cover,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        elevation: 15,
+        margin: EdgeInsets.all(10),
+      ));
+
 }
 
 Widget tekst(){
@@ -60,15 +73,17 @@ Widget tekst(){
     'QytetarIN nga Qendresa Qytetare',
     textAlign: TextAlign.center,
     overflow: TextOverflow.ellipsis,
-    style: TextStyle(fontWeight: FontWeight.bold),
+    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
   );
 }
 
 Widget tekst2(){
   return Linkify(
           onOpen: _onOpen,
-          text: "\n\nPër më shumë kliko: https://qq.com.al\n\nE-Mail: qendresaqytetare@gmail.com",
+    style: TextStyle(fontSize: 18),
+    text: "\n\nPër më shumë kliko: https://qq.com.al\n\nE-Mail: qendresaqytetare@gmail.com \n\n\n Swipe up për të dalë nga appi!",
         );
+  
 }
 
 Future<void> _onOpen(LinkableElement link) async {
