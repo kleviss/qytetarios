@@ -42,6 +42,16 @@ Future<bool> _exitApp(BuildContext context) async {
 }
 
 class _Tab2State extends State<Tab2> {
+
+  String title,url;
+  bool isLoading=true;
+  final _key = UniqueKey();
+
+  WebViewState(String title,String url){
+    this.title=title;
+    this.url=url;
+  }
+
   final Completer<WebViewController> _controller =
   Completer<WebViewController>();
 
@@ -75,36 +85,25 @@ class _Tab2State extends State<Tab2> {
 
         // We're using a Builder here so we have a context that is below the Scaffold
         // to allow calling Scaffold.of(context) so we can show a snackbar.
-        body: Builder(builder: (BuildContext context) {
-          return WebView(
-            initialUrl: 'https://qytetarin.com/',
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (WebViewController webViewController) {
-              _controller.complete(webViewController);
-            },
-//            // TODO(iskakaushik): Remove this when collection literals makes it to stable.
-            // ignore: prefer_collection_literals
-            javascriptChannels: <JavascriptChannel>[
-              _toasterJavascriptChannel(context),
-            ].toSet(),
-            navigationDelegate: (NavigationRequest request) {
-              if (request.url.startsWith('https://www.youltube.com/')) {
-                print('blocking navigation to $request}');
-                return NavigationDecision.prevent;
-              }
-              if (request.url.startsWith('https://flutter.dev/docs')) {
-                print('blocking navigation to $request}');
-                return NavigationDecision.prevent;
-              }
-              print('allowing navigation to $request');
-              return NavigationDecision.navigate;
-            },
-            onPageFinished: (String url) {
-              print('Tab 2 - Page finished loading: $url');
+        body: Stack(
+          children: <Widget>[
+            WebView(
+              key: _key,
+              initialUrl: "https://qytetarin.com",
+              javascriptMode: JavascriptMode.unrestricted,
+              onPageFinished: (finish) {
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            ),
+            isLoading ? Center( child: CircularProgressIndicator(
+              backgroundColor: Colors.white60,
 
-            },
-          );
-        }),
+            ),)
+                : Stack(),
+          ],
+        ),
 
         floatingActionButton: NavigationControls(_controller.future),
       ),
